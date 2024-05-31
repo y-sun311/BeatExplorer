@@ -9,10 +9,10 @@ function SearchArea() {
 
   return (
     <div className="bg-gray-800 flex flex-col min-h-screen">
-<header className="text-white p-4 flex items-center justify-center space-x-8">
-  <h1 className="text-xl cursor-pointer">Home</h1>
-  <h1 className="text-xl cursor-pointer">About</h1>
-</header>
+      <header className="text-white p-4 flex items-center justify-center space-x-8">
+           <h1 className="text-xl cursor-pointer">Home</h1>
+           <h1 className="text-xl cursor-pointer">About</h1>
+    </header>
 
       <div className="flex-grow flex items-center justify-center p-4">
         <div className="p-6 rounded-lg shadow-lg w-full max-w-md">
@@ -36,13 +36,13 @@ function SearchArea() {
             {searchType === 'flights' ? (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="airline">
+                  <label className="block text-sm text-green-400 font-medium text-gray-700 mb-1" htmlFor="airline">
                     Airline
                   </label>
                   <input
                     type="text"
                     id="airline"
-                    className="outline-none bg-transparent w-full p-2 border border-green-400 rounded-md"
+                    className="text-white outline-none bg-transparent w-full p-2 border border-green-400 rounded-md"
                     placeholder="Enter airline"
                   />
                 </div>
@@ -72,46 +72,46 @@ function SearchArea() {
               <>
                 <div className="flex space-x-4">
                   <div className="flex-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="dep-airport">
+                    <label className="text-green-400 block text-sm font-medium text-gray-700 mb-1" htmlFor="dep-airport">
                       Departure Airport
                     </label>
                     <input
                       type="text"
                       id="dep-airport"
-                      className="w-full p-2 border border-gray-300 rounded-md"
+                      className="outline-none text-white bg-transparent w-full p-2 border border-gray-300 rounded-md"
                       placeholder="Enter departure airport"
                     />
                   </div>
                   <div className="flex-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="arr-airport">
+                    <label className="text-green-400 block text-sm font-medium text-gray-700 mb-1" htmlFor="arr-airport">
                       Arrival Airport
                     </label>
                     <input
                       type="text"
                       id="arr-airport"
-                      className="w-full p-2 border border-gray-300 rounded-md"
+                      className="outline-none text-white bg-transparent w-full p-2 border border-gray-300 rounded-md"
                       placeholder="Enter arrival airport"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="route-date">
+                  <label className="text-green-400 block text-sm font-medium text-gray-700 mb-1" htmlFor="route-date">
                     Select Date
                   </label>
                   <input
                     type="date"
                     id="route-date"
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    className="outline-none text-white bg-transparent w-full p-2 border border-gray-300 rounded-md"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="route-airline">
+                  <label className="text-green-400 block text-sm font-medium text-gray-700 mb-1" htmlFor="route-airline">
                     Airline
                   </label>
                   <input
                     type="text"
                     id="route-airline"
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    className="outline-none text-white bg-transparent focus:outline-green-300 w-full p-2 border border-gray-300 rounded-md"
                     placeholder="Enter airline"
                   />
                 </div>
