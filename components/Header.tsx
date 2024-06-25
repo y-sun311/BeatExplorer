@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { HiHome, HiSearch } from "react-icons/hi";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { twMerge } from "tailwind-merge";
+import Button from "./Button";
 
 
 interface HeaderProps{
@@ -40,7 +41,25 @@ const Header: React.FC<HeaderProps> = ({children, className}) => {
                         <HiSearch className="text-black" size={30}/>
                     </button>
                 </div>
+                <div className="flex jusify-between item-center gap-x-4">
+                    <>
+                    <div>
+                        <Button
+                        onClick={() => {}} 
+                        className="bg-white">Continue as Guest</Button>
+                    </div>
+                    <div>
+                    <Button
+                        onClick={() => {}} 
+                        className="bg-green-400">Log In</Button>
+                    </div>
+                    
+                    
+                    </>
+
+                </div>
             </div>
+            {children}
         </div>
     )
 
