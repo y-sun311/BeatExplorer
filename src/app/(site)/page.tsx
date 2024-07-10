@@ -1,5 +1,5 @@
-import Header from "@/components/Header";
-import Listitem from "@/components/Listitem";
+import Header from "@/src/app/components/Header";
+import Listitem from "@/src/app/components/Listitem";
 
 
 
