@@ -1,28 +1,36 @@
 import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
-import spotifyApi, { LOGIN_URL } from '../../../lib/spotify'
+import axios from 'axios';
+import spotifyApi, { LOGIN_URL } from '../../../lib/spotify';
 
 async function refreshAccessToken(token) {
     try {
-
-        spotifyApi.setAccessToken(token.accessToken);
-        spotifyApi.setRefreshToken(token.refreshToken);
-
-        const { body: refreshedToken } = await spotifyApi.refreshAccessToken();
-        console.log("Refreshed access token", refreshedToken);
-
+        const basicAuth = Buffer.from(`${process.env.NEXT_PUBLIC_CLIENT_ID}:${process.env.NEXT_PUBLIC_CLIENT_SECRET}`).toString('base64');
+        const { data } = await axios.post(
+            'https://accounts.spotify.com/api/token',
+            new URLSearchParams({
+                grant_type: 'refresh_token',
+                refresh_token: token.refreshToken,
+            }).toString(),
+            {
+                headers: {
+                    Authorization: `Basic ${basicAuth}`,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                cache: "no-cache",
+            }
+        );
         return {
             ...token,
-            accessToken: refreshedToken.access_token,
-            accessTokenExpires: Date.now() + refreshedToken.expires_in * 1000,
-            refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
+            accessToken: data.access_token,
+            accessTokenExpires: Date.now() + data.expires_in * 1000,
+            refreshToken: data.refresh_token ?? token.refreshToken, // Fall back to old refresh token
         };
     } catch (error) {
         console.error("Error refreshing access token", error);
-
         return {
             ...token,
-            error: "RefreshAccessTokenError",
+            error: 'RefreshAccessTokenError',
         };
     }
 }
@@ -40,36 +48,36 @@ const authOptions = {
         signIn: "/login",
     },
     callbacks: {
-        async jwt(token, user, account) {
-            // Initial sign in
-            if (account && user) {
-                return {
-                    ...token,
-                    accessToken: account.access_token,
-                    refreshToken: account.refresh_token,
-                    username: account.providerAccountId,
-                    accessTokenExpires: account.expire_at * 1000,
-                };
-            }
-            // Return previous token if the access token has not expired yet
-            if (Date.now() < token.accessTokenExpires) {
+        async jwt({ token, account, profile }) {
+            console.log('JWT callback:', { token, account, profile });
+            if (account) {
+                token.id = account.id;
+                token.accessToken = account.accessToken;
+                token.refreshToken = account.refresh_token;
+                token.accessTokenExpires = account.expires_at * 1000;
+                token.profile = profile;
                 return token;
             }
 
-            // Access token has expired, try to update it
+            if (Date.now() < token.accessTokenExpires) {
+                console.log("Existing token is valid");
+                return token;
+            }
+
+            console.log("Access token has expired, refreshing...");
             return await refreshAccessToken(token);
         },
+        async session({ session, token }) {
+            console.log('Session callback:', { session, token });
+            session.user.accessToken = token.accessToken;
+            session.user.refreshToken = token.refreshToken;
+            session.user.username = token.profile.name;
+            session.user.id = token.id;
+            return session;
+        }
     },
-
-    async session(session, token) {
-        session.user.accessToken = token.accessToken;
-        session.user.refreshToken = token.refreshToken;
-        session.user.username = token.username;
-
-        return session;
-    }
 };
 
 const { handlers } = NextAuth(authOptions);
+export const { GET, POST } = handlers;
 
-export const { GET, POST } = handlers
