@@ -28,7 +28,20 @@ const spotifyApi = new SpotifyWebApi({
     clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
 });
 
+export async function fetchSpotifyData(url, accessToken) {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  
+    if (!response.ok) {
+      throw new Error(`Error fetching data: ${response.statusText}`);
+    }
+  
+    return response.json();
+  }
+  
 export default spotifyApi;
-
 export { LOGIN_URL };
 
