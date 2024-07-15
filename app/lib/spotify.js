@@ -1,47 +1,47 @@
 import SpotifyWebApi from 'spotify-web-api-node';
+import axios from 'axios';
 
 const scopes = [
-    'user-read-email',
-    'playlist-read-private',
-    'playlist-read-collaborative',
-    'user-library-read',
-    'user-top-read',
-    'user-read-playback-state',
-    'user-modify-playback-state',
-    'user-read-currently-playing',
-    'user-read-recently-played',
-    'user-follow-read',
+  'user-read-email',
+  'playlist-read-private',
+  'playlist-read-collaborative',
+  'user-library-read',
+  'user-top-read',
+  'user-read-playback-state',
+  'user-modify-playback-state',
+  'user-read-currently-playing',
+  'user-read-recently-played',
+  'user-follow-read',
 ].join(',');
 
-
 const params = {
-    scope: scopes,
+  scope: scopes,
 };
 
 const queryParamString = new URLSearchParams(params);
 
 const LOGIN_URL = "https://accounts.spotify.com/authorize?" + queryParamString.toString();
 
-
 const spotifyApi = new SpotifyWebApi({
-    clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
-    clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+  clientId: process.env.NEXT_PUBLIC_CLIENT_ID,
+  clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
 });
 
-export async function fetchSpotifyData(url, accessToken) {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  
-    if (!response.ok) {
-      throw new Error(`Error fetching data: ${response.statusText}`);
-    }
-  
-    return response.json();
+export const fetchSpotifyData = async (url, accessToken) => {
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error fetching data: ${response.statusText}`);
   }
-  
+
+  return response.json();
+};
+
 export default spotifyApi;
 export { LOGIN_URL };
+
 
