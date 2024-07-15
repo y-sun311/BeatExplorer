@@ -40,7 +40,7 @@ function Sidebar() {
 
   return (
     <div className="p-5 text-gray-400 bg-black border-gray-900 text-xs lg:text-sm h-screen overflow-y-scroll sm:max-w-[12rem] lg:max-w-[15rem]
-    hidden md:inline-flex">
+    hidden md:inline-flex pb-36">
       <div className="space-y-4">
         {/* <button className="flex items-center space-x-2 hover:text-white" onClick={() => signOut()}>
           <p>Logout</p>
