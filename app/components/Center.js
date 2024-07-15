@@ -10,6 +10,7 @@ import { playlistIdState, playlistAtom } from '../../atoms/playlistAtom';
 import Songs from './Songs';
 import useSpotify from '@/hooks/useSpotify';
 
+
 const colors = [
   'bg-red-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400',
   'bg-purple-400', 'bg-pink-400', 'bg-indigo-400', 'bg-gray-400',
