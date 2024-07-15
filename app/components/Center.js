@@ -7,12 +7,13 @@ import { ChevronDoubleDownIcon } from '@heroicons/react/outline';
 import { useRecoilState } from 'recoil';
 import { fetchSpotifyData } from '../lib/spotify';
 import { playlistIdState, playlistAtom } from '../../atoms/playlistAtom';
+import Songs from './Songs';
 import useSpotify from '@/hooks/useSpotify';
 
 const colors = [
   'bg-red-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400',
   'bg-purple-400', 'bg-pink-400', 'bg-indigo-400', 'bg-gray-400',
-  'bg-black', 'bg-white'
+  'bg-gray-500', 'bg-red-500', 'bg-blue-500', 'bg-green-500',
 ];
 
 function Center() {
@@ -48,7 +49,7 @@ function Center() {
   }
 
   return (
-    <div className="flex-grow">
+    <div className="flex-grow h-screen overflow-y-scroll scrollbar-hide">
       <header className='absolute top-5 right-8'>
         <div className='bg-red-300 flex items-center space-x-3 rounded-full opacity-80 hover:opacity-60 cursor-pointer p-1 pr-2'>
           <img className='rounded-full w-10 h-10' src={session?.user?.image} alt="" />
@@ -63,9 +64,12 @@ function Center() {
    <div>
             <p>PLAYLIST</p>
             <h1 className='text-2xl font-bold'>{playlist?.name}</h1>
-
    </div>
       </section>
+
+<div>
+    <Songs />
+</div>
     </div>
   );
 }
