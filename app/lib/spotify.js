@@ -41,6 +41,29 @@ export const fetchSpotifyData = async (url, accessToken) => {
   return response.json();
 };
 
+export const playSong = async (uri, accessToken) => {
+    try {
+      const response = await axios.put(
+        'https://api.spotify.com/v1/me/player/play',
+        {
+          uris: [uri], // Correct format
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+  
+      if (response.status !== 204) { // Spotify API returns 204 No Content on success
+        throw new Error('Failed to play track');
+      }
+    } catch (error) {
+      console.error('Error playing track', error.response ? error.response.data : error.message);
+    }
+  };
+
 export default spotifyApi;
 export { LOGIN_URL };
 

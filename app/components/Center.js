@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { shuffle } from 'lodash';
 import { ChevronDoubleDownIcon } from '@heroicons/react/outline';
@@ -52,7 +52,7 @@ function Center() {
   return (
     <div className="flex-grow h-screen overflow-y-scroll scrollbar-hide">
       <header className='absolute top-5 right-8'>
-        <div className='bg-red-300 flex items-center space-x-3 rounded-full opacity-80 hover:opacity-60 cursor-pointer p-1 pr-2'>
+        <div onClick={signOut} className='bg-red-300 flex items-center space-x-3 rounded-full opacity-80 hover:opacity-60 cursor-pointer p-1 pr-2'>
           <img className='rounded-full w-10 h-10' src={session?.user?.image} alt="" />
           <h2>{session?.user?.name}</h2>
           <ChevronDoubleDownIcon className='h-5 w-5' />
