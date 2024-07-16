@@ -1,5 +1,8 @@
+"use client"
+
 import Sidebar from "@/app/components/Sidebar";
 import Center from "@/app/components/Center";
+import Player from "./components/Player";
 
 
 export default function Home() {
@@ -10,7 +13,9 @@ export default function Home() {
            <Center />
         </main>
 
-        <div>{/* player */}</div>
+        <div className="sticky bottom-0">
+            <Player />
+        </div>
     </div>
   );
 }

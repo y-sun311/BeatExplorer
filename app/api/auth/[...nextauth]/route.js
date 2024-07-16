@@ -24,7 +24,7 @@ async function refreshAccessToken(token) {
             ...token,
             accessToken: data.access_token,
             accessTokenExpires: Date.now() + data.expires_in * 1000,
-            refreshToken: data.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+            refreshToken: data.refresh_token ?? token.refreshToken,
         };
     } catch (error) {
         console.error("Error refreshing access token", error);
@@ -52,9 +52,9 @@ const authOptions = {
             console.log('JWT callback:', { token, account, profile });
             if (account) {
                 token.id = account.id;
-                token.accessToken = account.accessToken;
+                token.accessToken = account.access_token;
                 token.refreshToken = account.refresh_token;
-                token.accessTokenExpires = account.expires_at * 1000;
+                token.accessTokenExpires = Date.now() + account.expires_in * 1000;
                 token.profile = profile;
                 return token;
             }
@@ -71,7 +71,7 @@ const authOptions = {
             console.log('Session callback:', { session, token });
             session.user.accessToken = token.accessToken;
             session.user.refreshToken = token.refreshToken;
-            session.user.username = token.profile.name;
+            session.user.username = token.profile?.name ?? null;
             session.user.id = token.id;
             return session;
         }
@@ -80,4 +80,5 @@ const authOptions = {
 
 const { handlers } = NextAuth(authOptions);
 export const { GET, POST } = handlers;
+
 
