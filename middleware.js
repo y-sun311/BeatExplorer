@@ -5,6 +5,8 @@ export async function middleware(request) {
   const token = await getToken({
     req: request,
     secret: process.env.JWT_SECRET,
+    secureCookie: true
+
   });
 
   const { pathname } = request.nextUrl;
