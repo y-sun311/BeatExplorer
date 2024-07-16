@@ -6,7 +6,7 @@ export async function middleware(request) {
     req: request,
     secret: process.env.JWT_SECRET,
     secureCookie:
-    process.env.NEXTAUTH_URL?.startsWith("https://") ??
+    process.env.NEXTAUTH_URL?.startsWith("http://") ??
     !!process.env.VERCEL_URL,
   });
 
