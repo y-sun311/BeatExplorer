@@ -2,17 +2,20 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import axios from 'axios';
 
 const scopes = [
-  'user-read-email',
-  'playlist-read-private',
-  'playlist-read-collaborative',
-  'user-library-read',
-  'user-top-read',
-  'user-read-playback-state',
-  'user-modify-playback-state',
-  'user-read-currently-playing',
-  'user-read-recently-played',
-  'user-follow-read',
-].join(',');
+    'streaming',
+    'user-read-email',
+    'playlist-read-private',
+    'user-read-private',
+    'user-read-playback-state',
+    'playlist-read-collaborative',
+    'user-library-read',
+    'user-top-read',
+    'user-modify-playback-state',
+    'user-read-currently-playing',
+    'user-read-recently-played',
+    'user-follow-read',
+  ].join(',');
+  
 
 const params = {
   scope: scopes,
@@ -46,7 +49,7 @@ export const playSong = async (uri, accessToken) => {
       const response = await axios.put(
         'https://api.spotify.com/v1/me/player/play',
         {
-          uris: [uri], // Correct format
+          uris: [uri], // Spotify expects an array of URIs
         },
         {
           headers: {
