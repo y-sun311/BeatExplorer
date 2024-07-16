@@ -5,6 +5,9 @@ export async function middleware(request) {
   const token = await getToken({
     req: request,
     secret: process.env.JWT_SECRET,
+    secureCookie:
+    process.env.NEXTAUTH_URL?.startsWith("https://") ??
+    !!process.env.VERCEL_URL,
   });
 
   const { pathname } = request.nextUrl;
@@ -28,3 +31,5 @@ export async function middleware(request) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 }
+
+
