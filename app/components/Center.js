@@ -10,7 +10,6 @@ import { playlistIdState, playlistAtom } from '../../atoms/playlistAtom';
 import Songs from './Songs';
 import useSpotify from '@/hooks/useSpotify';
 
-
 const colors = [
   'bg-red-400', 'bg-blue-400', 'bg-green-400', 'bg-yellow-400',
   'bg-purple-400', 'bg-pink-400', 'bg-indigo-400', 'bg-gray-400',
@@ -31,19 +30,18 @@ function Center() {
   useEffect(() => {
     if (accessToken) {
       const fetchPlaylists = async () => {
-        // get the playlist by id provided
         try {
           const data = await fetchSpotifyData(`https://api.spotify.com/v1/playlists/${playlistId}`, accessToken);
           setPlaylists(data);
         } catch (error) {
           console.error('Error fetching playlists:', error);
         }
-        }
-        fetchPlaylists();
+      };
+      fetchPlaylists();
     }
-    }, [accessToken, playlistId]);
+  }, [accessToken, playlistId]);
 
-    console.log(playlist);
+  console.log(playlist);
 
   if (status === 'loading') {
     return <p>Loading...</p>;
@@ -59,20 +57,20 @@ function Center() {
         </div>
       </header>
 
-      <section className={`flex items-end w-full space-x-7 bg-gradient-to-b  ${color} h-80 text-white p-8`}>
-        <img className='h-44 w-44 shadow-xl' src={playlist?.images?.[0].url}></img>
-   
-   <div>
-            <p>PLAYLIST</p>
-            <h1 className='text-2xl font-bold'>{playlist?.name}</h1>
-   </div>
+      <section className={`flex items-end w-full space-x-7 bg-gradient-to-b ${color} h-80 text-white p-8`}>
+        <img className='h-44 w-44 shadow-xl' src={playlist?.images?.[0]?.url} alt="" />
+        <div>
+          <p>PLAYLIST</p>
+          <h1 className='text-2xl font-bold'>{playlist?.name}</h1>
+        </div>
       </section>
 
-<div>
-    <Songs />
-</div>
+      <div>
+        <Songs />
+      </div>
     </div>
   );
 }
 
 export default Center;
+
