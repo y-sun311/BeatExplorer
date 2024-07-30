@@ -1,6 +1,6 @@
 # Next.js Spotify-like Web Application
 
-This project is a Spotify-like web application bootstrapped with [Next.js](https://nextjs.org/) using [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+BeatExplorer is a Spotify-like web application bootstrapped with [Next.js](https://nextjs.org/) using [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Features
 
